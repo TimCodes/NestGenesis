@@ -22,11 +22,17 @@ export class UsersService {
         userId: 3,
         username: 'maria',
         password: 'guess',
+        helllo: 'world',
+        roles: ['admin', 'manager', 'user'],
       },
     ];
   }
 
-  async findOne(username: string): Promise<User | undefined> {
+  async findByUserName(username: string): Promise<User | undefined> {
+    return this.users.find(user => user.username === username);
+  }
+
+  async findById(username: string): Promise<User | undefined> {
     return this.users.find(user => user.username === username);
   }
 }

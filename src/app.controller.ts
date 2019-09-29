@@ -7,6 +7,7 @@ export class AppController {
 
   @Get()
   getHello(): string {
+    console.log(' --- hitting base route -----');
     return this.appService.getHello();
   }
 }
