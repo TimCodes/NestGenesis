@@ -1,13 +1,28 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
-
+/*
+      TODO : Delete payload from list if exists on login
+*/
 @Injectable()
 export class AuthService {
+  Logoutlist: any;
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
-  ) {}
+  ) {
+    this.Logoutlist = { xxxx: {}, rarar: {}, gsdgdsg: {} };
+    setInterval(() => {
+      console.log(' ----- before ------', this.Logoutlist);
+      this.checkTokenLogoutList();
+      console.log('----- after -----', this.Logoutlist);
+    }, 10000);
+  }
 
   async validateUser(username: string, pass: string): Promise<any> {
     const user = await this.usersService.findByUserName(username);
@@ -34,5 +49,31 @@ export class AuthService {
         roles: roles,
       }),
     };
+  }
+
+  async logout(user: any) {
+    this.Logoutlist[user.id] = user;
+  }
+
+  async forgotPass() {
+    return 'fogot pass';
+  }
+
+  async resetPass(req: object) {}
+
+  checkTokenLogoutList() {
+    const keys = Object.keys(this.Logoutlist);
+    const formattedDate = Math.floor(Date.now() / 1000);
+    keys.forEach(key => {
+      const { exp } = this.Logoutlist[key];
+      if (formattedDate > exp) {
+        delete this.Logoutlist[key];
+      }
+    });
+    console.log(keys);
+  }
+
+  checkTokenValidity(payload: any) {
+    return !this.Logoutlist.hasOwnProperty(payload.id);
   }
 }
