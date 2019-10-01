@@ -18,8 +18,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   async validate(payload: any) {
     console.log(' ---- validating token -----');
-    console.log(payload);
-    console.log(this.authService.checkTokenValidity(payload));
+    
     if (this.authService.checkTokenValidity(payload)) return payload;
   }
 }

@@ -16,12 +16,10 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
   ) {
-    this.Logoutlist = { xxxx: {}, rarar: {}, gsdgdsg: {} };
+    this.Logoutlist = {};
     setInterval(() => {
-      console.log(' ----- before ------', this.Logoutlist);
       this.checkTokenLogoutList();
-      console.log('----- after -----', this.Logoutlist);
-    }, 10000);
+    }, 60000);
   }
 
   async validateUser(username: string, pass: string): Promise<any> {
@@ -41,6 +39,8 @@ export class AuthService {
     if (!username) {
       throw new UnauthorizedException();
     }
+
+    delete this.Logoutlist[userId];
 
     return {
       access_token: this.jwtService.sign({
@@ -70,7 +70,6 @@ export class AuthService {
         delete this.Logoutlist[key];
       }
     });
-    console.log(keys);
   }
 
   checkTokenValidity(payload: any) {
