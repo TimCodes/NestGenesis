@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Body,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AccountsService } from './accounts.service';
 import { RolesGuard } from '../common/guards/role.guard';
@@ -14,10 +23,25 @@ export class AccountsController {
     return this.accountsService.getAll();
   }
 
+  @Get(':id')
+  getById(@Param('id') id) {
+    return 'get indvidual account';
+  }
+
   @Post()
   @Roles('admin')
   create(@Body() account: any) {
     console.log('create new ', account);
     return this.accountsService.create(account);
+  }
+
+  @Put(':id')
+  updateAccount(@Param('id') id) {
+    return 'update indvidual account';
+  }
+
+  @Delete(':id')
+  deleteAccount(@Param('id') id) {
+    return 'delete indvidual account';
   }
 }

@@ -28,8 +28,22 @@ export class AccountsService {
     return this.accounts;
   }
 
+  async getById(id) {}
+
+  async getByUsername(username) {}
+
   async create(account) {
     this.accounts.push(account);
     return this.accounts.slice();
   }
+
+  async update(username) {}
+
+  async delete(username) {}
+
+  async activate(username) {}
+
+  async linkUser(username) {}
+
+  async unLinkUser(username) {}
 }
