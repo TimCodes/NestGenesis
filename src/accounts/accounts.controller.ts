@@ -44,4 +44,19 @@ export class AccountsController {
   deleteAccount(@Param('id') id) {
     return 'delete indvidual account';
   }
+
+  @Post('register')
+  register(@Body() login) {}
+
+  @Post('login')
+  login(@Body() login) {}
+
+  @Post('logoff')
+  logoff(@Body() login) {}
+
+  @Get('confirmemail')
+  confirmEmail(@Body() login) {}
+
+  @Post('forgotpassword')
+  forgotPassword(@Body() login) {}
 }
