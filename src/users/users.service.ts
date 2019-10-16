@@ -45,6 +45,11 @@ export class UsersService {
     return this.users.find(user => user.username === username);
   }
 
+  async verifyPassword(username, password: string) {
+    const user = await this.findByUserName(username);
+    return Bcrypt.compare(password, user.password);
+  }
+
   private async generatePasswordHash(password) {
     const salt = await Bcrypt.genSalt(10);
     const hash = await Bcrypt.hash(password, salt);
