@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import Bcrypt from 'bcrypt';
+import * as Bcrypt from 'bcrypt';
 
 export type User = any;
 
@@ -12,17 +12,20 @@ export class UsersService {
       {
         userId: 1,
         username: 'john',
-        password: 'changeme',
+        password:
+          '$2b$10$HPfnhX7WaSqUMW/WZ1sVtei1TNQ9McZJqhc9ebCX/K7Wt9h7mk2T2',
       },
       {
         userId: 2,
         username: 'chris',
-        password: 'secret',
+        password:
+          '$2b$10$HPfnhX7WaSqUMW/WZ1sVtei1TNQ9McZJqhc9ebCX/K7Wt9h7mk2T2',
       },
       {
         userId: 3,
         username: 'maria',
-        password: 'guess',
+        password:
+          '$2b$10$HPfnhX7WaSqUMW/WZ1sVtei1TNQ9McZJqhc9ebCX/K7Wt9h7mk2T2',
         helllo: 'world',
         roles: ['admin', 'manager', 'user'],
       },
@@ -45,9 +48,10 @@ export class UsersService {
     return this.users.find(user => user.username === username);
   }
 
-  async verifyPassword(username, password: string) {
+  async verifyPassword(username: string, password: string) {
     const user = await this.findByUserName(username);
-    return Bcrypt.compare(password, user.password);
+    const isMatch = await Bcrypt.compare(password, user.password);
+    return isMatch;
   }
 
   private async generatePasswordHash(password) {

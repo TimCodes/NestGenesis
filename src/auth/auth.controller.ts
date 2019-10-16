@@ -6,9 +6,11 @@ import {
   Delete,
   Req,
   UseGuards,
+  Body,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
+import { LoginDTO, RegisterDTO } from './auth.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -18,12 +20,23 @@ export class AuthController {
   getHello(): string {
     return 'hello auth';
   }
+  @Post('register')
+  register(@Body() login) {}
 
   @Post('login')
-  async login(@Request() req) {
-    console.log(' ---- auth login ctrl req ----', req.body);
-    return this.authService.login(req.body);
+  async login(@Body() loginDTO: LoginDTO) {
+    console.log(' ---- auth login ctrl req ----', loginDTO);
+    return this.authService.login(loginDTO);
   }
+
+  @Post('logoff')
+  logoff(@Body() login) {}
+
+  @Get('confirmemail')
+  confirmEmail(@Body() login) {}
+
+  @Post('forgotpassword')
+  forgotPassword(@Body() login) {}
 
   @UseGuards(AuthGuard('jwt'))
   @Delete('logout')

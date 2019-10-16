@@ -24,15 +24,19 @@ export class AuthService {
   }
 
   async validateUser(username: string, pass: string): Promise<any> {
-    const user = await this.usersService.findByUserName(username);
-    if (user && user.password === pass) {
-      const { password, ...result } = user;
-      return result;
+    const isPassVerified = await this.usersService.verifyPassword(
+      username,
+      pass,
+    );
+    if (!isPassVerified) {
+      return null;
     }
-    return null;
+    const user = await this.usersService.findByUserName(username);
+    return user;
   }
 
   async login(user: any) {
+    console.log(' ---- user -----', user);
     const { username, userId, roles } = await this.validateUser(
       user.username,
       user.password,
