@@ -33,12 +33,13 @@ export class UsersService {
   }
 
   async create(username, password) {
-    const passHash = this.generatePasswordHash(password);
+    const { hash } = await this.generatePasswordHash(password);
     this.users.push({
       userId: this.users.length + 1,
       username,
-      password: passHash,
+      password: hash,
     });
+    return this.users;
   }
   async findByUserName(username: string): Promise<User | undefined> {
     return this.users.find(user => user.username === username);

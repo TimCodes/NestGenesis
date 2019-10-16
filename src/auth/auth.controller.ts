@@ -9,19 +9,26 @@ import {
   Body,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
 import { LoginDTO, RegisterDTO } from './auth.dto';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly usersService: UsersService,
+  ) {}
 
   @Get()
   getHello(): string {
     return 'hello auth';
   }
   @Post('register')
-  register(@Body() login) {}
+  register(@Body() registerDTO: RegisterDTO) {
+    console.log('----- register ------', registerDTO);
+    return this.usersService.create(registerDTO.email, registerDTO.password);
+  }
 
   @Post('login')
   async login(@Body() loginDTO: LoginDTO) {
