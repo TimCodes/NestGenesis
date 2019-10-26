@@ -6,18 +6,54 @@ import {
   Delete,
   Param,
   Body,
+  Request,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AccountsService } from './accounts.service';
+import { UsersService } from '../users/users.service';
+import { AuthService } from '../auth/auth.service';
+import { LoginDTO, RegisterDTO } from '../auth/auth.dto';
 import { RolesGuard } from '../common/guards/role.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 
 @Controller('accounts')
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 export class AccountsController {
-  constructor(private readonly accountsService: AccountsService) {}
+  constructor(
+    private readonly accountsService: AccountsService,
+    private readonly authService: AuthService,
+    private readonly usersService: UsersService,
+  ) {}
 
+  @Post('register')
+  register(@Body() registerDTO: RegisterDTO) {
+    console.log('----- register ------', registerDTO);
+    return this.usersService.create(registerDTO.email, registerDTO.password);
+  }
+
+  @Post('login')
+  async login(@Body() loginDTO: LoginDTO) {
+    console.log(' ---- auth login ctrl req ----', loginDTO);
+    return this.authService.login(loginDTO);
+  }
+
+  @Post('logoff')
+  logoff(@Body() login) {}
+
+  @Get('confirmemail')
+  confirmEmail(@Body() login) {}
+
+  @Post('forgotpassword')
+  forgotPassword(@Body() login) {}
+
+  @UseGuards(AuthGuard('jwt'))
+  @Delete('logout')
+  logout(@Request() req) {
+    console.log(' ----- log out -----', req.user);
+    this.authService.logout(req.user);
+    return req.logout();
+  }
   @Get()
   getAll() {
     return this.accountsService.getAll();

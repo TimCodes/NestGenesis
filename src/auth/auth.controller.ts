@@ -20,10 +20,6 @@ export class AuthController {
     private readonly usersService: UsersService,
   ) {}
 
-  @Get()
-  getHello(): string {
-    return 'hello auth';
-  }
   @Post('register')
   register(@Body() registerDTO: RegisterDTO) {
     console.log('----- register ------', registerDTO);
