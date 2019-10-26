@@ -5,9 +5,11 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { AccountsModule } from './accounts/accounts.module';
 import { RolesModule } from './roles/roles.module';
+import { MailerService } from './mailer/mailer.service';
+import { MailerModule } from './mailer/mailer.module';
 
 @Module({
-  imports: [UsersModule, AuthModule, AccountsModule, RolesModule],
-  providers: [AppService],
+  imports: [UsersModule, AuthModule, AccountsModule, RolesModule, MailerModule],
+  providers: [AppService, MailerService],
 })
 export class AppModule {}
