@@ -54,6 +54,7 @@ export class AccountsController {
     this.authService.logout(req.user);
     return req.logout();
   }
+
   @Get()
   getAll() {
     return this.accountsService.getAll();
