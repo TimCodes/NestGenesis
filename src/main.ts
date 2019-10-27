@@ -47,7 +47,7 @@ async function testMail() {
     .catch(console.log);
 }
 
-testMail().catch(console.error);
+//testMail().catch(console.error);
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
