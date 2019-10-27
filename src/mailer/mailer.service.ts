@@ -30,7 +30,8 @@ export class MailerService {
   }
 
   async compileTemplate() {
-    const temp = Handlebars.compile(this.getTemplate());
+    const blankTemplate = await this.getTemplate();
+    const temp = Handlebars.compile(blankTemplate);
     const context = {
       content: {
         inviteURL: 'facebook.com',
@@ -41,9 +42,7 @@ export class MailerService {
   }
 
   async sendMail() {
-    console.log('--- send mail ----');
     const emailTemplate = await this.compileTemplate();
-    console.log(emailTemplate);
     const transporter = nodemailer.createTransport(this.mailConfig);
     return transporter
       .sendMail({
