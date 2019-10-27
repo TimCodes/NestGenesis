@@ -17,7 +17,7 @@ export class MailerService {
       secure: true,
       auth: {
         user: 'i3eredeye@gmail.com',
-        pass: 'june1969',
+        pass: '',
       },
     };
   }
