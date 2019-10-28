@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-const Fs = require('fs');
-const Path = require('path');
-const Util = require('util');
+import * as nodemailer from 'nodemailer';
+import * as Fs from 'fs';
+import * as Path from 'path';
+import * as Util from 'util';
+import * as Handlebars from 'handlebars';
 const readFile = Util.promisify(Fs.readFile);
-const Handlebars = require('handlebars');
-const nodemailer = require('nodemailer');
 
 @Injectable()
 export class MailerService {
@@ -17,7 +17,7 @@ export class MailerService {
       secure: true,
       auth: {
         user: 'i3eredeye@gmail.com',
-        pass: '',
+        pass: 'june1969',
       },
     };
   }
