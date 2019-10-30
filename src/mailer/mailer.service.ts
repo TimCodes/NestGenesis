@@ -4,20 +4,23 @@ import * as Fs from 'fs';
 import * as Path from 'path';
 import * as Util from 'util';
 import * as Handlebars from 'handlebars';
+import { ConfigService } from '../config/config.service';
 const readFile = Util.promisify(Fs.readFile);
 
 @Injectable()
 export class MailerService {
   private mailConfig: any;
+  private mailUser: any;
+  private mailPass: any;
 
-  constructor() {
+  constructor(config: ConfigService) {
     this.mailConfig = {
       host: 'smtp.gmail.com',
       port: 465,
       secure: true,
       auth: {
-        user: 'i3eredeye@gmail.com',
-        pass: '',
+        user: `${config.get('NODEMAILER_USER')}`,
+        pass: `${config.get('NODEMAILER_PASSWORD')}`,
       },
     };
   }
