@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html style="background-color: #546DB7;">
+<html style="background-color: #0BB5FF;">
   <head>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Welcome to {{ content.domainName }}</title>
+    <title>Welcome to {{ domainName }}</title>
 
     <!--[if !mso]><!-- -->
     <link
@@ -27,6 +27,26 @@
           line-height: 100%;
         }
       }
+      h1 {
+        color: #fff;
+        font-family: 'Cardo', serif;
+        font-size: 1.5em;
+        font-weight: normal;
+        font-style: italic;
+        letter-spacing: 0.1em;
+        line-height: 2.2em;
+      }
+
+      em {
+        font-family: 'EB Garamond', serif;
+        font-size: 3.5em;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        display: block;
+        font-style: normal;
+        padding-top: 0.1em;
+        text-shadow: 0.07em 0.07em 0 rgba(0, 0, 0, 0.1);
+      }
     </style>
 
     <!--[if gte mso 9]>
@@ -40,13 +60,13 @@
   </head>
 
   <body
-    style="font-family: sans-serif; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.4; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; background-color: #546DB7; Margin: 0; padding: 0;"
+    style="font-family: sans-serif; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.4; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; background-color: #0BB5FF; Margin: 0; padding: 0;"
   >
     <table
       border="0"
       cellpadding="0"
       cellspacing="0"
-      style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; background-color: #546DB7; text-align: center;"
+      style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; background-color: #0BB5FF; text-align: center;"
       width="100%"
       bgcolor="#f6f6f6"
       align="center"
@@ -80,15 +100,11 @@
                     <a
                       href="{{ domain }}"
                       target="_blank"
-                      style="color: #3498db; text-decoration: underline;"
-                      ><img
-                        src="https://usegravity.app/assets/images/logo/gravity-logo.png"
-                        width="90"
-                        height="70"
-                        alt="Logo"
-                        align="center"
-                        style="none; -ms-interpolation-mode: bicubic; max-width: 100%;"
-                    /></a>
+                      style="color: #3498db; text-decoration: none;"
+                      ><h1>
+                        <em>Welcome</em>
+                      </h1>
+                    </a>
                   </td>
                 </tr>
               </table>
@@ -125,7 +141,7 @@
                           <h1
                             style="color: #555555; font-family: 'Source Sans Pro', helvetica, arial, sans-serif; font-weight: 600; line-height: 1.4; Margin: 0 0 0 0; font-size: 28px; text-align: left;"
                           >
-                            Welcome To {{content.domainName}
+                            Welcome To {{ domainName }}
                           </h1>
                         </td>
                       </tr>
@@ -140,20 +156,20 @@
                           <p
                             style="color: #7e8890; font-family: 'Source Sans Pro', helvetica, arial, sans-serif; font-size: 15px; font-weight: normal; Margin: 0; Margin-bottom: 15px; line-height: 1.6;"
                           >
-                            Hi {{ content.userName }},
+                            Hi {{ userName }},
                           </p>
                           <p
                             style="color: #7e8890; font-family: 'Source Sans Pro', helvetica, arial, sans-serif; font-size: 15px; font-weight: normal; Margin: 0; Margin-bottom: 15px; line-height: 1.6;"
                           >
                             Thank you for signing up to
-                            {{ content.domainName }}.
+                            {{ domainName }}.
                           </p>
                           <p
                             style="color: #7e8890; font-family: 'Source Sans Pro', helvetica, arial, sans-serif; font-size: 15px; font-weight: normal; Margin: 0; Margin-bottom: 15px; line-height: 1.6;"
                           >
-                            please click button below to start using
-                            {{content.domainName}. If you need any assistance,
-                            please don’t hesitate to contact us.
+                            Please click button below to verify your email . If
+                            you need any assistance, please don’t hesitate to
+                            contact us.
                           </p>
                         </td>
                       </tr>
@@ -202,7 +218,7 @@
                                     href="{{ domain }}/signin"
                                     target="_blank"
                                     style="padding: 20px; display: block; color: #ffffff; background-color: #8EC480; border-radius: 4px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-family: 'Source Sans Pro', helvetica, arial, sans-serif; font-size: 18px; font-weight: 700; margin: 0; text-transform: uppercase; border-color: #3498db;"
-                                    >Sign In</a
+                                    >Verify Email</a
                                   >
                                 </td>
                               </tr>

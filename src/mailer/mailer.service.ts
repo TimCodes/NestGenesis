@@ -26,7 +26,7 @@ export class MailerService {
   }
 
   private async getTemplate() {
-    const filePath = Path.resolve(__dirname, `./templates/user-invite.html`);
+    const filePath = Path.resolve(__dirname, `./templates/verify-email.html`);
     const options = { encoding: 'utf-8' };
     const source = await readFile(filePath, options);
     return source;
@@ -36,9 +36,8 @@ export class MailerService {
     const blankTemplate = await this.getTemplate();
     const temp = Handlebars.compile(blankTemplate);
     const context = {
-      content: {
-        inviteURL: 'facebook.com',
-      },
+      userName: 'Test',
+      domainName: 'testis',
     };
     const html = temp(context);
     return html;
