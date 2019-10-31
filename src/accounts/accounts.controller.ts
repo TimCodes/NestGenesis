@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AccountsService } from './accounts.service';
+import { VerificationtokenService } from './verificationtoken.service';
 import { UsersService } from '../users/users.service';
 import { AuthService } from '../auth/auth.service';
 import { MailerService } from '../mailer/mailer.service';
@@ -23,6 +24,7 @@ import { Roles } from '../common/decorators/roles.decorator';
 export class AccountsController {
   constructor(
     private readonly accountsService: AccountsService,
+    private readonly verificationTokenService: VerificationtokenService,
     private readonly authService: AuthService,
     private readonly usersService: UsersService,
     private readonly mailerService: MailerService,
@@ -32,8 +34,23 @@ export class AccountsController {
   async register(@Body() registerDTO: RegisterDTO) {
     console.log('----- register ------', registerDTO);
     console.log('- ------ send mailll -----');
-    const go = await this.mailerService.sendMail().catch(console.error);
-    return this.usersService.create(registerDTO.email, registerDTO.password);
+    const user = await this.usersService.create(
+      registerDTO.username,
+      registerDTO.email,
+      registerDTO.password,
+    );
+    const go = await this.mailerService
+      .sendMail('verify-email', {
+        userName: user.username,
+        email: user.email,
+        domainName: 'Genisis-ID',
+        returnUrl: `localhost:3002/accounts/confirmemail/${
+          this.verificationTokenService.createToken(user.userId.toString())
+            .token
+        }`,
+      })
+      .catch(console.error);
+    return user;
   }
 
   @Post('login')
@@ -45,8 +62,10 @@ export class AccountsController {
   @Post('logoff')
   logoff(@Body() login) {}
 
-  @Get('confirmemail')
-  confirmEmail(@Body() login) {}
+  @Get('confirmemail/:token')
+  confirmEmail(@Param('token') token) {
+    return 'verified ' + token;
+  }
 
   @Post('forgotpassword')
   forgotPassword(@Body() login) {}

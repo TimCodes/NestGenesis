@@ -12,18 +12,21 @@ export class UsersService {
       {
         userId: 1,
         username: 'john',
+        email: 'john@test.com',
         password:
           '$2b$10$HPfnhX7WaSqUMW/WZ1sVtei1TNQ9McZJqhc9ebCX/K7Wt9h7mk2T2',
       },
       {
         userId: 2,
         username: 'chris',
+        email: 'chris@test.com',
         password:
           '$2b$10$HPfnhX7WaSqUMW/WZ1sVtei1TNQ9McZJqhc9ebCX/K7Wt9h7mk2T2',
       },
       {
         userId: 3,
         username: 'maria',
+        email: 'maria@test.com',
         password:
           '$2b$10$HPfnhX7WaSqUMW/WZ1sVtei1TNQ9McZJqhc9ebCX/K7Wt9h7mk2T2',
         helllo: 'world',
@@ -32,14 +35,16 @@ export class UsersService {
     ];
   }
 
-  async create(username, password) {
+  async create(username, email, password) {
     const { hash } = await this.generatePasswordHash(password);
-    this.users.push({
+    const user = {
       userId: this.users.length + 1,
       username,
       password: hash,
-    });
-    return this.users;
+      email: email,
+    };
+    this.users.push(user);
+    return user;
   }
   async findByUserName(username: string): Promise<User | undefined> {
     return this.users.find(user => user.username === username);

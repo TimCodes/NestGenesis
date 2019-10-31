@@ -23,7 +23,7 @@ export class AuthController {
   @Post('register')
   register(@Body() registerDTO: RegisterDTO) {
     console.log('----- register ------', registerDTO);
-    return this.usersService.create(registerDTO.email, registerDTO.password);
+    // return this.usersService.create(registerDTO.email, registerDTO.password);
   }
 
   @Post('login')

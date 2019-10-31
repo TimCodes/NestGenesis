@@ -32,24 +32,21 @@ export class MailerService {
     return source;
   }
 
-  async compileTemplate() {
+  async compileTemplate(context) {
     const blankTemplate = await this.getTemplate();
     const temp = Handlebars.compile(blankTemplate);
-    const context = {
-      userName: 'Test',
-      domainName: 'testis',
-    };
     const html = temp(context);
     return html;
   }
 
-  async sendMail() {
-    const emailTemplate = await this.compileTemplate();
+  async sendMail(templateName, context) {
+    console.log('---- ctx ----', context);
+    const emailTemplate = await this.compileTemplate(context);
     const transporter = nodemailer.createTransport(this.mailConfig);
     return transporter
       .sendMail({
         from: '"Fred Foo 👻" <hardtimo@isu.edu>', // sender address
-        to: 'hardtimo@isu.edu', // list of receivers
+        to: `${context.email}`, // list of receivers
         subject: 'Hello ✔', // Subject line
         text: 'Hello world?', // plain text body
         html: `${emailTemplate}`, // html body

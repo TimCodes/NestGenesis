@@ -12,7 +12,7 @@ export class AppController {
   @Get('hello')
   getHello(): string {
     console.log(' --- hitting base route -----');
-    this.mailerService.sendMail();
+    //this.mailerService.sendMail();
     return this.appService.getHello();
   }
 }
