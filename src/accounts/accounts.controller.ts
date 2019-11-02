@@ -64,7 +64,10 @@ export class AccountsController {
 
   @Get('confirmemail/:token')
   confirmEmail(@Param('token') token) {
-    return 'verified ' + token;
+    const isTokenValid = this.verificationTokenService.verifyToken(token);
+    if (isTokenValid) {
+      return 'verified ' + token;
+    }
   }
 
   @Post('forgotpassword')

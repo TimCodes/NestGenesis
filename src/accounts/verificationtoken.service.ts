@@ -11,6 +11,7 @@ export class VerificationtokenService {
 
   createToken(userId: string) {
     const hash = crypto.randomBytes(20).toString('hex');
+    this.tokens.push(hash);
     return { userId, token: hash };
   }
 
